@@ -4,9 +4,6 @@ from .Vote import Vote
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, select, func
 from sqlalchemy.orm import relationship, column_property
 
-
-user = relationship('User')
-
 class Post(Base):
   __tablename__ = 'posts'
   id = Column(Integer, primary_key=True)
@@ -20,3 +17,5 @@ class Post(Base):
   vote_count = column_property(
     select([func.count(Vote.id)]).where(Vote.post_id == id)
   )
+
+  user = relationship('User')
